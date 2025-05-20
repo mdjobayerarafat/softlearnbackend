@@ -13,15 +13,12 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 # Set working directory
 WORKDIR /app
 
-# Copy pyproject.toml first for better caching
-COPY pyproject.toml .
+# Copy entire project first
+COPY . .
 
 # Install Python dependencies using UV
 RUN uv pip install --system hatchling && \
     uv pip install --system .
-
-# Copy the application code
-COPY . .
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
