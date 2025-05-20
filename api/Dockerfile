@@ -8,6 +8,13 @@ ADD . /app
 WORKDIR /app
 RUN uv sync --frozen
 
+COPY requirements.txt .
+COPY requirements.lock .
 
+# Copy the rest of the application
+COPY . .
+
+# Set Python to run in unbuffered mode
+ENV PYTHONUNBUFFERED=1
 # Run the application
 CMD ["uv", "run", "app.py"]
