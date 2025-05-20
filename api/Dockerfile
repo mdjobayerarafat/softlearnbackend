@@ -11,10 +11,13 @@ RUN apt-get update && apt-get install -y \
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 # Set working directory
-WORKDIR /app/api
+WORKDIR /app
 
-# Copy project files
-COPY . .
+# Copy only the API directory content
+COPY api/ /app/
+
+# Create content directory for static files
+RUN mkdir -p content
 
 # Install dependencies using UV
 RUN uv pip install --system \
@@ -49,6 +52,7 @@ RUN uv pip install --system \
     stripe>=11.1.1 \
     python-jose>=3.3.0 \
     "logfire[sqlalchemy]>=3.8.0"
+
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
