@@ -7,14 +7,17 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 # Set working directory
 WORKDIR /app
 
-# Copy project files
+# Copy pyproject.toml first for better caching
+COPY pyproject.toml .
+
+# Install dependencies using UV
+RUN uv sync
+
+# Copy the rest of the application
 COPY . .
 
 # Set Python to run in unbuffered mode
 ENV PYTHONUNBUFFERED=1
-
-# Install dependencies using UV
-RUN uv sync
 
 # Run the application
 CMD ["uv", "run", "app.py"]
