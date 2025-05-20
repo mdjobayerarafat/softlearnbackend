@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 # Set working directory
-WORKDIR /app
+WORKDIR /app/api
 
 # Copy project files
 COPY . .
@@ -58,4 +58,4 @@ ENV PYTHONUNBUFFERED=1 \
 EXPOSE 8000
 
 # Start the FastAPI application with uvicorn
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
