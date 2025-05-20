@@ -61,5 +61,5 @@ ENV PYTHONUNBUFFERED=1 \
 # Expose the port FastAPI runs on
 EXPOSE 8000
 
-# Start the FastAPI application with uvicorn
+# Start the FastAPI application with uvicorns
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
